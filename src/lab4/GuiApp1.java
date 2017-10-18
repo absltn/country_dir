@@ -1,10 +1,13 @@
+package lab4;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.lang.String;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 
 public class GuiApp1 {
 
@@ -22,9 +25,10 @@ public class GuiApp1 {
         guiFrame.setTitle("Country directory");
         guiFrame.setSize(600,100);
 
+        CSVReader newReader = new CSVReader();     // initialize new CSV reader to connect to simple DB
         guiFrame.setLocationRelativeTo(null);
 
-        String[] countryBase = {"Test country"};
+        String[] countryBase = {"Belgium"};
 
         final JPanel comboPanel = new JPanel();
         JLabel comboLbl = new JLabel("Выберите страну");
@@ -38,7 +42,20 @@ public class GuiApp1 {
         resultText.setEnabled(false);
         resultText.setSize(600,50);
         comboPanel.add(resultText);
-        
+
+
+        countryList.addActionListener(
+                new ActionListener(){
+                    public void actionPerformed(ActionEvent e){
+                        JComboBox countryList = (JComboBox)e.getSource();
+                        String selection = new String();
+                        selection = (String)countryList.getSelectedItem();
+                        String str = String.join(",",newReader.getInfo(selection));
+                        resultText.setText(str);
+                    }
+                }
+        );
+
         guiFrame.add(comboPanel);
 
         guiFrame.setVisible(true);
