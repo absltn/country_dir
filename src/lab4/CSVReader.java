@@ -28,8 +28,10 @@ public class CSVReader {
 
             String result = "";
             for (int i=0; i < countryList.size(); i++)
-                if (countryList.get(i)[0].contentEquals(search)){
-                    result = String.join(";",countryList.get(i));
+                if (countryList.get(i)[0].contentEquals(search)) {
+                    result = "Information found:\n" + "Continent: " + countryList.get(i)[3] +
+                        "\nCapital: " + countryList.get(i)[4] +
+                        "\nPopulation: " + countryList.get(i)[5];
                     break;
                 }
             return result;
