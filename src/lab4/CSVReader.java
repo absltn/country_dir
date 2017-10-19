@@ -6,18 +6,17 @@ import java.util.ArrayList;
 
 public class CSVReader {
 
-        String csvFile = "/Users/AirLiq/Downloads/simplemaps-worldcities-basic.csv";
-        String line = "\n";
-        String cvsSplitBy = ",";
+        String csvFile = "/Users/AirLiq/Downloads/example-countries.csv";
+        String line = "";
+        String cvsSplitBy = ";";
 
         ArrayList<String[]> countryList = new ArrayList<String[]>();
-        String[] getInfo (String search) {
+        String getInfo (String search) {
 
             try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
                 while ((line = br.readLine()) != null) {
 
-                    // use comma as separator
                     String[] country = line.split(cvsSplitBy);
 
                     countryList.add(country);
@@ -27,10 +26,10 @@ public class CSVReader {
                 e.printStackTrace();
             }
 
-            String[] result = new String[1];
+            String result = "";
             for (int i=0; i < countryList.size(); i++)
-                if (countryList.get(i)[5] == search) {
-                    result = countryList.get(i);
+                if (countryList.get(i)[0].contentEquals(search)){
+                    result = String.join(";",countryList.get(i));
                     break;
                 }
             return result;
